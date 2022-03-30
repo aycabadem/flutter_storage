@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_storage/model/my_models.dart';
+import 'package:flutter_storage/sevices/file_storage.dart';
+import 'package:flutter_storage/sevices/secure_storage.dart';
 import 'package:flutter_storage/sevices/shared_pref_service.dart';
 
 class SharedPreferenceUsage extends StatefulWidget {
@@ -15,7 +17,8 @@ class _SharedPreferenceUsageState extends State<SharedPreferenceUsage> {
   var _chosenColors = <String>[];
   var _studentInfo = false;
   final TextEditingController _nameController = TextEditingController();
-  final _prefService = SharedPrefService();
+  // final _prefService = SharedPrefService();
+  final _prefService = FileStorageService();
 
   @override
   void initState() {
