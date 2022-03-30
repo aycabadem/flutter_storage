@@ -1,19 +1,27 @@
 import 'package:flutter_storage/model/my_models.dart';
+import 'package:flutter_storage/sevices/local_storage_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SharedPrefService {
-  void saveData(UserInformation userInformation) async {
-    final _name = userInformation.name;
-    final preferences = await SharedPreferences.getInstance();
+class SharedPrefService implements LocalStorageService {
+  late final SharedPreferences preferences;
+  SharedPrefService() {
+    init();
+  }
+  Future<void> init() async {
+    preferences = await SharedPreferences.getInstance();
+  }
 
+  @override
+  Future<void> saveData(UserInformation userInformation) async {
+    final _name = userInformation.name;
     preferences.setString('name', _name);
     preferences.setBool('student', userInformation.student);
     preferences.setInt('gender', userInformation.gender.index);
     preferences.setStringList('colors', userInformation.color);
   }
 
+  @override
   Future<UserInformation> readData() async {
-    final preferences = await SharedPreferences.getInstance();
     var _name = preferences.getString('name') ?? '';
     var _student = preferences.getBool('student') ?? false;
 

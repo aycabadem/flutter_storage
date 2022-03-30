@@ -1,7 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_storage/main.dart';
 import 'package:flutter_storage/model/my_models.dart';
 import 'package:flutter_storage/sevices/file_storage.dart';
+import 'package:flutter_storage/sevices/local_storage_service.dart';
 import 'package:flutter_storage/sevices/secure_storage.dart';
 import 'package:flutter_storage/sevices/shared_pref_service.dart';
 
@@ -18,7 +20,8 @@ class _SharedPreferenceUsageState extends State<SharedPreferenceUsage> {
   var _studentInfo = false;
   final TextEditingController _nameController = TextEditingController();
   // final _prefService = SharedPrefService();
-  final _prefService = FileStorageService();
+  //final LocalStorageService _prefService = FileStorageService();
+  final LocalStorageService _prefService = locator<LocalStorageService>();
 
   @override
   void initState() {

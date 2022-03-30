@@ -4,10 +4,15 @@ import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:flutter_storage/model/my_models.dart';
+import 'package:flutter_storage/sevices/local_storage_service.dart';
 
-class SecureStorageService {
+class SecureStorageService implements LocalStorageService {
   late final FlutterSecureStorage preferences;
-  void saveData(UserInformation userInformation) async {
+  SecureStorageService() {
+    preferences = FlutterSecureStorage();
+  }
+  @override
+  Future<void> saveData(UserInformation userInformation) async {
     final _name = userInformation.name;
     // final preferences = await SharedPreferences.getInstance();
 
@@ -21,8 +26,8 @@ class SecureStorageService {
     //preferences.setStringList('colors', userInformation.color);
   }
 
+  @override
   Future<UserInformation> readData() async {
-    preferences = FlutterSecureStorage();
     var _name = await preferences.read(key: 'name') ?? '';
     var _studentString = await preferences.read(key: 'student') ?? 'false';
     var _student = _studentString.toLowerCase() == 'true' ? true : false;
